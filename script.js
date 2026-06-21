@@ -1011,28 +1011,43 @@ function showBooks() {
   sessionStorage.setItem('libraryBooks', JSON.stringify(books));
   renderBooks(books);
 }
+const colorPairs = [
+      { bg: "#ffeb3b", text: "#000" },
+      { bg: "#2196f3", text: "#fff" },
+      { bg: "#f44336", text: "#fff" },
+      { bg: "#4caf50", text: "#fff" },
+      { bg: "#9c27b0", text: "#fff" },
+      { bg: "#ff9800", text: "#000" }
+    ];                        
 
 function renderBooks(bookArray) {
   const bookList = document.getElementById('bookList');
   if (!bookList) return;
   bookList.innerHTML = '';
-  bookArray.forEach(book => {
+
+  bookArray.forEach((book, index) => {
     const li = document.createElement('li');
+    const colors = colorPairs[index % colorPairs.length]; // cycle through colors
+
+    // apply background and text color
+    li.style.backgroundColor = colors.bg;
+    li.style.color = colors.text;
+
     li.innerHTML = `
-  <div class="book-card">
-    <h3>${book.title} <small>(${book.book_id})</small></h3>
-    <p><strong>Author:</strong> ${book.author}</p>
-    <p><strong>Genre:</strong> ${book.genre}</p>
-    <p><strong>Published:</strong> ${book.published_year} by ${book.publisher}</p>
-    <p><strong>ISBN:</strong> ${book.isbn}</p>
-    <p><strong>Language:</strong> ${book.language}</p>
-    <p><strong>Pages:</strong> ${book.pages}</p>
-    <p><strong>Copies:</strong> ${book.available_copies} available / ${book.total_copies} total</p>
-    <p><strong>Location:</strong> ${book.location}</p>
-    <p><strong>Tags:</strong> ${book.tags.join(", ")}</p>
-    <p><strong>Rating:</strong> ⭐ ${book.rating}</p>
-  </div>
-`;
+      <div class="book-card">
+        <h3>${book.title} <small>(${book.book_id})</small></h3>
+        <p><strong>Author:</strong> ${book.author}</p>
+        <p><strong>Genre:</strong> ${book.genre}</p>
+        <p><strong>Published:</strong> ${book.published_year} by ${book.publisher}</p>
+        <p><strong>ISBN:</strong> ${book.isbn}</p>
+        <p><strong>Language:</strong> ${book.language}</p>
+        <p><strong>Pages:</strong> ${book.pages}</p>
+        <p><strong>Copies:</strong> ${book.available_copies} available / ${book.total_copies} total</p>
+        <p><strong>Location:</strong> ${book.location}</p>
+        <p><strong>Tags:</strong> ${book.tags.join(", ")}</p>
+        <p><strong>Rating:</strong> ⭐ ${book.rating}</p>
+      </div>
+    `;
     bookList.appendChild(li);
   });
 }
@@ -1047,11 +1062,40 @@ function filterBooks() {
   const storedBooks = JSON.parse(sessionStorage.getItem('libraryBooks') || '[]');
 
   const filtered = storedBooks.filter(book => {
-    const val = (book[filterType] !== undefined && book[filterType] !== null) ? book[filterType].toString().toLowerCase() : '';
+    const val = (book[filterType] !== undefined && book[filterType] !== null) 
+      ? book[filterType].toString().toLowerCase() 
+      : '';
     return val.includes(filterValue);
   });
 
-  renderBooks(filtered);
+  // render with colors applied
+  const bookList = document.getElementById('bookList');
+  if (!bookList) return;
+  bookList.innerHTML = '';
+
+  filtered.forEach((book, index) => {
+    const li = document.createElement('li');
+    const colors = colorPairs[index % colorPairs.length]; // cycle through colors
+    li.style.backgroundColor = colors.bg;
+    li.style.color = colors.text;
+
+    li.innerHTML = `
+      <div class="book-card">
+        <h3>${book.title} <small>(${book.book_id})</small></h3>
+        <p><strong>Author:</strong> ${book.author}</p>
+        <p><strong>Genre:</strong> ${book.genre}</p>
+        <p><strong>Published:</strong> ${book.published_year} by ${book.publisher}</p>
+        <p><strong>ISBN:</strong> ${book.isbn}</p>
+        <p><strong>Language:</strong> ${book.language}</p>
+        <p><strong>Pages:</strong> ${book.pages}</p>
+        <p><strong>Copies:</strong> ${book.available_copies} available / ${book.total_copies} total</p>
+        <p><strong>Location:</strong> ${book.location}</p>
+        <p><strong>Tags:</strong> ${book.tags.join(", ")}</p>
+        <p><strong>Rating:</strong> ⭐ ${book.rating}</p>
+      </div>
+    `;
+    bookList.appendChild(li);
+  });
 }
 
 /* Attach filter functions to global scope so inline onclick attributes work */
