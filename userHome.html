@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Home </title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #19a040, #0d5c2c);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    h2, h3 {
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    /* Return Home button */
+    #returnHome {
+      background-color: rgba(0,0,0,0.6);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      transition: background 0.3s ease;
+    }
+    #returnHome:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      margin: 20px 0;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    select, input, button {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+    }
+    input {
+      width: 200px;
+    }
+    button {
+      background: #0d5c2c;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #0a4722;
+    }
+
+    /* Book list */
+    #bookList {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+    #bookList li {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+    #bookList li:hover {
+      transform: translateY(-5px);
+    }
+    #bookList li strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: #ffd700;
+    }
+    #filterType{
+       display: block;
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: #10debf;
+      background-color: #0a74da ;
+    }
+  </style>
+</head>
+<body>
+  <button id="returnHome" onclick="returnToDashboard()">Return Home</button>
+
+  <h2 id="userGreeting"></h2>
+  <h3>Available Books:</h3>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <label for="filterType">Filter by:</label>
+    <select id="filterType">
+      <option value="title">Title</option>
+      <option value="author">Author</option>
+      <option value="published_year">Published Year</option>
+    </select>
+    <input type="text" id="filterValue" placeholder="Enter value">
+    <button onclick="filterBooks()">Search</button>
+    <button onclick="showBooks()">Reset</button>
+  </div>
+
+  <!-- Book list -->
+  <ul id="bookList"></ul>
+
+  <script src="library.js">
+</script>
+  <script>
+    // Simulate login success
+    showUserHome();
+    showBooks(); // load books initially
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Dashboard</title>
+</head>
+<body>
+  <h2 id="dashboardGreeting"></h2>
+  <button onclick="goToHome()">Go check out some books</button>
+   <button type="button" id="logout">Logout</button>
+  <script>
+    // Read name from URL
+    const params = new URLSearchParams(window.location.search);
+    const userName = params.get("name");
+
+    // Show greeting
+    document.getElementById("dashboardGreeting").textContent = `Welcome, ${userName}`;
+
+    // Redirect to userhome with name again
+    function goToHome() {
+      window.location.href = `userhome.html?name=${encodeURIComponent(userName)}`;
+    }
+
+    const logoutFromHome = document.getElementById("logout");
+    logoutFromHome.addEventListener("click", function redirectToLogin(){
+        window.location.href = "index.html";
+    })
+  </script>
+</body>
+</html>
