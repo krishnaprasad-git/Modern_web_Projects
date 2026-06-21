@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Home </title>
+  <title>User Home</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -100,12 +100,11 @@
   </style>
 </head>
 <body>
-  <button id="returnHome" onclick="returnToDashboard()">Return Home</button>
+  <button id="returnHome">Return Home</button>
 
   <h2 id="userGreeting"></h2>
   <h3>Available Books:</h3>
 
-  <!-- Filter bar -->
   <div class="filter-bar">
     <label for="filterType">Filter by:</label>
     <select id="filterType">
@@ -118,15 +117,14 @@
     <button onclick="showBooks()">Reset</button>
   </div>
 
-  <!-- Book list -->
   <ul id="bookList"></ul>
 
-  <script src="library.js">
-</script>
+  <script src="script.js"></script>
   <script>
-    // Simulate login success
-    showUserHome();
-    showBooks(); // load books initially
+    // initialize page-specific content
+    // script.js will expose showUserHome and showBooks
+    if (typeof showUserHome === 'function') showUserHome();
+    if (typeof showBooks === 'function') showBooks();
   </script>
 </body>
 </html>
